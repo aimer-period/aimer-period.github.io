@@ -1,7 +1,7 @@
 ---
 title: Hexo搭建博客
 date: 2022-01-12 17:24:40
-tags:
+tags:hexo
 ---
 
 # 1、安装node.js
