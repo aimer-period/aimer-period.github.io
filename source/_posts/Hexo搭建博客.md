@@ -1,7 +1,8 @@
 ---
 title: Hexo搭建博客
 date: 2022-01-12 17:24:40
-tags:hexo
+cover: https://cdn.jsdelivr.net/gh/aimer-period/pic/img/6t.png
+tags: hexo
 ---
 
 # 1、安装node.js
