@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+    
+    <title>将GitHub的分支作为hexo源文件的仓库 - Sin の</title>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    
+    
+    <!-- Site Verification -->
+    <meta name="google-site-verification" content="4kZShpjhoxyVzcodA2ncjWgv3htJrzWVgDLBiRjVjKI" />
+
+
+    <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/aimer-period/pic/img/wallhaven-wqogz7.png" type="image/png" />
+    <meta name="description" content="1、建立仓库关联12cd bloggit remote #查询链接的仓库  我已经做好了仓库的关联，如果没有的话先在本地文件夹初始化，然后链接仓库 12345git initgit remote add origin https:&#x2F;&#x2F;github.com&#x2F;aimer-period&#x2F;aimer-period.github.io.gitgit remote    2、提交文件1234git addgi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="将GitHub的分支作为hexo源文件的仓库">
+<meta property="og:url" content="http://aimersin.top/2022/01/12/jiang-github-de-fen-zhi-zuo-wei-hexo-yuan-wen-jian-de-cang-ku/index.html">
+<meta property="og:site_name" content="Sin の">
+<meta property="og:description" content="1、建立仓库关联12cd bloggit remote #查询链接的仓库  我已经做好了仓库的关联，如果没有的话先在本地文件夹初始化，然后链接仓库 12345git initgit remote add origin https:&#x2F;&#x2F;github.com&#x2F;aimer-period&#x2F;aimer-period.github.io.gitgit remote    2、提交文件1234git addgi">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-01-12T14:26:03.000Z">
+<meta property="article:modified_time" content="2022-03-19T05:38:31.207Z">
+<meta property="article:author" content="Sin">
+<meta property="article:tag" content="hexo">
+<meta name="twitter:card" content="summary">
+    <link rel="stylesheet" href="/lib/jquery.fancybox.min.css?v=1648719821198">
+    
+    <link rel="stylesheet" href="/lib/mdui_043tiny/css/mdui.css?v=1648719821198">
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1648719821198">
+    <link rel="stylesheet" href="/css/style.css?v=1648719821198">
+     
+    
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body class="mdui-drawer-body-left">
+    
+    <div id="nexmoe-background">
+        <div class="nexmoe-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/aimer-period/pic/img/圣人惠.jpg)"></div>
+        <div class="mdui-appbar mdui-shadow-0">
+            <div class="mdui-toolbar">
+                <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+                <div class="mdui-toolbar-spacer"></div>
+                <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+                <a href="/" title="Sin" class="mdui-btn mdui-btn-icon"><img src="https://cdn.jsdelivr.net/gh/aimer-period/pic/img/wallhaven-y821zg.jpg" alt="Sin"></a>
+            </div>
+        </div>
+    </div>
+    <div id="nexmoe-header">
+        <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="Sin">
+            <img src="https://cdn.jsdelivr.net/gh/aimer-period/pic/img/wallhaven-y821zg.jpg" alt="Sin" alt="Sin">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>5</div>
+        <div><span>标签</span>3</div>
+        <div><span>分类</span>1</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/about.html" title="关于博客">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于博客
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/PY.html" title="我的朋友">
+            <i class="mdui-list-item-icon nexmoefont icon-unorderedlist"></i>
+            <div class="mdui-list-item-content">
+                我的朋友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+    
+    <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+        
+            <form id="search_form">
+                <label><input class="st-default-search-input" id="search_value" name="q" type="search" placeholder="搜索" style="
+                    font-size: 15px !important;
+                    height: 56px !important;
+                    background-image: none;
+                "></label>
+            </form>
+         
+    </div>
+</div>
+    
+    <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="http://wpa.qq.com/msgrd?v=3&uin=1066062562&site=qq&menu=yes" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(249, 174, 8);background-color: rgba(249, 174, 8, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="https://space.bilibili.com/93229246" target="_blank" mdui-tooltip="{content: '哔哩哔哩'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
+            <i class="nexmoefont icon-bilibili"></i>
+        </a><a class="mdui-ripple" href="https://github.com/aimer-period/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a>
+    </div>
+</div>
+    
+    
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/Java/">Java</a>
+          <span class="category-list-count">3</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+    
+    
+  <div class="nexmoe-widget-wrap">
+    <div id="randomtagcloud" class="nexmoe-widget tagcloud nexmoe-rainbow">
+      <a href="/tags/hexo/" style="font-size: 20px;">hexo</a> <a href="/tags/spring/" style="font-size: 20px;">spring</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a>
+    </div>
+    
+  </div>
+
+    
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2022 Sin
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/theme-nexmoe/hexo-theme-nexmoe" target="_blank">Nexmoe</a>
+        
+    </div>
+</div><!-- .nexmoe-drawer -->
+    </div>
+    <div id="nexmoe-content">
+        <div class="nexmoe-primary">
+            <div class="nexmoe-post">
+
+  <article>
+      
+          <div class="nexmoe-post-cover" style="padding-bottom: 66.66666666666666%;"> 
+              <img data-src="https://cdn.jsdelivr.net/gh/aimer-period/pic/img/圣人惠.jpg" data-sizes="auto" alt="将GitHub的分支作为hexo源文件的仓库" class="lazyload">
+              <h1>将GitHub的分支作为hexo源文件的仓库</h1>
+          </div>
+      
+      
+      <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2022年01月12日</a>
+</div>
+
+      
+
+      <h1 id="1、建立仓库关联"><a href="#1、建立仓库关联" class="headerlink" title="1、建立仓库关联"></a>1、建立仓库关联</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> blog</span><br><span class="line">git remote <span class="comment">#查询链接的仓库</span></span><br></pre></td></tr></table></figure>
+
+<p>我已经做好了仓库的关联，如果没有的话先在本地文件夹初始化，然后链接仓库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br><span class="line"></span><br><span class="line">git remote add origin https://github.com/aimer-period/aimer-period.github.io.git</span><br><span class="line"></span><br><span class="line">git remote</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="2、提交文件"><a href="#2、提交文件" class="headerlink" title="2、提交文件"></a>2、提交文件</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git add</span><br><span class="line">git commit -m <span class="string">&quot;源文件&quot;</span></span><br><span class="line">git push -u origin HEAD:分支名</span><br><span class="line"><span class="comment">#分支名改为你想建立的分支</span></span><br></pre></td></tr></table></figure>
+
+<p>​        我们提交之后仓库就会多出来一个分支，我们把他设为默认，以后就不用特地写分支了</p>
+<p>之后修改就像正常的提交一样</p>
+<p>​        至于这里为什么不先在 Github 上面手动建立分支，然后再在本地建立关联，是因为如果是远程手动建立分支会自动以 master 分支为模板建立一份一模一样的文件，而我们仓库里面 master 分支存的都是经过 hexo 编译的文件，跟源文件完全不一样，新建这样一个分支之后还要手动把里面的文件删掉，另一个原因是如果在远程手动建分支，你在本地还得手动用 git fetch origin 拉取远程分支的更新，然后再手动建立与分支的关联，比较麻烦</p>
+<h1 id="3、恢复"><a href="#3、恢复" class="headerlink" title="3、恢复"></a>3、恢复</h1><p>重装电脑后，或者在其它电脑上想修改博客：</p>
+<ol>
+<li>安装git；</li>
+<li>安装Nodejs和npm；</li>
+<li>使用<code>git clone https://github.com/aimer-period/aimer-period.github.io.git</code>将仓库拷贝至本地；</li>
+<li>在文件夹内执行以下命令<code>npm install hexo-cli -g</code>、<code>npm install</code>、<code>npm install hexo-deployer-git</code>。</li>
+</ol>
+<h1 id="4、hexo的源文件"><a href="#4、hexo的源文件" class="headerlink" title="4、hexo的源文件"></a>4、hexo的源文件</h1><p>这里说一下步骤4为什么只需要拷贝6个，而不需要全部：</p>
+<ol>
+<li><code>_config.yml</code>站点的配置文件，需要拷贝；</li>
+<li><code>themes/</code>主题文件夹，需要拷贝；</li>
+<li><code>source</code>博客文章的.md文件，需要拷贝；</li>
+<li><code>scaffolds/</code>文章的模板，需要拷贝；</li>
+<li><code>package.json</code>安装包的名称，需要拷贝；</li>
+<li><code>.gitignore</code>限定在push时哪些文件可以忽略，需要拷贝；</li>
+<li><code>.git/</code>主题和站点都有，标志这是一个git项目，不需要拷贝；</li>
+<li><code>node_modules/</code>是安装包的目录，在执行<code>npm install</code>的时候会重新生成，不需要拷贝；</li>
+<li><code>public</code>是<code>hexo g</code>生成的静态网页，不需要拷贝；</li>
+<li><code>.deploy_git</code>同上，<code>hexo g</code>也会生成，不需要拷贝；</li>
+<li><code>db.json</code>文件，不需要拷贝。</li>
+</ol>
+<p>其实不需要拷贝的文件正是<code>.gitignore</code>中所忽略的。</p>
+
+  </article>
+
+  
+      
+    <div class="nexmoe-post-copyright">
+        <strong>本文作者：</strong>Sin<br>
+        <strong>本文链接：</strong><a href="http://aimersin.top/2022/01/12/jiang-github-de-fen-zhi-zuo-wei-hexo-yuan-wen-jian-de-cang-ku/" title="http:&#x2F;&#x2F;aimersin.top&#x2F;2022&#x2F;01&#x2F;12&#x2F;jiang-github-de-fen-zhi-zuo-wei-hexo-yuan-wen-jian-de-cang-ku&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;aimersin.top&#x2F;2022&#x2F;01&#x2F;12&#x2F;jiang-github-de-fen-zhi-zuo-wei-hexo-yuan-wen-jian-de-cang-ku&#x2F;</a><br>
+        
+            <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+        
+    </div>
+
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+    
+        <a class="nexmoefont icon-tag-fill -none-link" href="/tags/hexo/" rel="tag">hexo</a>
+    
+</div>
+
+  
+      <div class="nexmoe-post-footer">
+          <section class="nexmoe-comment">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.css">
+<div id="gitalk"></div>
+<script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '80b2453b6d5f37ad6225',
+        clientSecret: '43e99fa852795c9a7b3eb924b2558c64b84bbdeb',
+        id: window.location.pathname,
+        repo: 'nexmoe.github.io',
+        owner: 'nexmoe',
+        admin: 'nexmoe'
+    })
+    gitalk.render('gitalk')
+</script>
+</section>
+      </div>
+  
+</div>
+            <div class="nexmoe-post-right">
+              <div class="nexmoe-fixed">
+                  <div class="nexmoe-tool"> 
+                    
+                      
+                        
+                          
+                          
+                              <button class="mdui-fab catalog" style="overflow:unset;">
+                                  <i class="nexmoefont icon-i-catalog"></i>
+                                  <div class="nexmoe-toc">
+                                      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1%E3%80%81%E5%BB%BA%E7%AB%8B%E4%BB%93%E5%BA%93%E5%85%B3%E8%81%94"><span class="toc-number">1.</span> <span class="toc-text">1、建立仓库关联</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2%E3%80%81%E6%8F%90%E4%BA%A4%E6%96%87%E4%BB%B6"><span class="toc-number">2.</span> <span class="toc-text">2、提交文件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3%E3%80%81%E6%81%A2%E5%A4%8D"><span class="toc-number">3.</span> <span class="toc-text">3、恢复</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4%E3%80%81hexo%E7%9A%84%E6%BA%90%E6%96%87%E4%BB%B6"><span class="toc-number">4.</span> <span class="toc-text">4、hexo的源文件</span></a></li></ol>
+                                  </div>
+                              </button>
+                          
+                          
+                      
+                    
+                      <a href="#nexmoe-content" class="toc-link" aria-label="回到顶部" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+     
+    <div id="nexmoe-search-space">
+        <div class="search-container">
+            <div class="search-header">
+                <div class="search-input-container">
+                    <input class="search-input" type="text" placeholder="搜索" oninput="sinput();">
+                </div>
+                <a class="search-close" onclick="sclose();">×</a>
+            </div>
+            <div class="search-body"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+ 
+
+<script async src="/js/app.js?v=1648719821200"></script>
+
+
+	<script async src="/js/search.js?v=1648719821200"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
+<script>
+	$(".justified-gallery").justifiedGallery({
+		rowHeight: 160,
+		margins: 10,
+	});
+</script>
+
+
+    
+    <!-- Google Analytics -->
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'G-62WJEB87T7', 'auto');
+    ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+
+
+
+
+
+
+</body>
+
+</html>
