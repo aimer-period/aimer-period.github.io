@@ -4,7 +4,7 @@
 
 <head>
     
-    <title>categories - Sin の</title>
+    <title>通过ReentrantLock了解AQS - Sin の</title>
     <meta charset="UTF-8">
     <meta name="keywords" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
@@ -15,22 +15,24 @@
 
 
     <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/aimer-period/pic/img/wallhaven-wqogz7.png" type="image/png" />
-    <meta name="description" content="愿逐月华流照君">
-<meta property="og:type" content="website">
-<meta property="og:title" content="categories">
-<meta property="og:url" content="http://aimersin.top/categories/index.html">
+    <meta name="description" content="JUC： java.util.concorrent.*    Java支持高并发的实现包  AQSAQS到底是什么？ 1、一个队列 2、一个唤醒机制 3、一堆队列节点状态 4、一个state（为0表示无锁，数字是几就是几把锁，可能锁重入） 5、模板方法设计模式 1234567891011class X&amp;#123;  private final ReentrantLock lock &#x3D; new R">
+<meta property="og:type" content="article">
+<meta property="og:title" content="通过ReentrantLock了解AQS">
+<meta property="og:url" content="http://aimersin.top/2022/04/08/tong-guo-reentrantlock-liao-jie-aqs/index.html">
 <meta property="og:site_name" content="Sin の">
-<meta property="og:description" content="愿逐月华流照君">
+<meta property="og:description" content="JUC： java.util.concorrent.*    Java支持高并发的实现包  AQSAQS到底是什么？ 1、一个队列 2、一个唤醒机制 3、一堆队列节点状态 4、一个state（为0表示无锁，数字是几就是几把锁，可能锁重入） 5、模板方法设计模式 1234567891011class X&amp;#123;  private final ReentrantLock lock &#x3D; new R">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-01-13T05:16:02.000Z">
-<meta property="article:modified_time" content="2022-01-13T05:16:49.207Z">
+<meta property="article:published_time" content="2022-04-08T08:39:40.000Z">
+<meta property="article:modified_time" content="2022-04-08T11:53:24.876Z">
 <meta property="article:author" content="Sin">
+<meta property="article:tag" content="JUC">
+<meta property="article:tag" content="AQS">
 <meta name="twitter:card" content="summary">
-    <link rel="stylesheet" href="/lib/jquery.fancybox.min.css?v=1652331273866">
+    <link rel="stylesheet" href="/lib/jquery.fancybox.min.css?v=1652331273704">
     
-    <link rel="stylesheet" href="/lib/mdui_043tiny/css/mdui.css?v=1652331273866">
-    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1652331273866">
-    <link rel="stylesheet" href="/css/style.css?v=1652331273866">
+    <link rel="stylesheet" href="/lib/mdui_043tiny/css/mdui.css?v=1652331273704">
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1652331273704">
+    <link rel="stylesheet" href="/css/style.css?v=1652331273704">
      
     
 <meta name="generator" content="Hexo 6.0.0"></head>
@@ -164,25 +166,46 @@
   <article>
       
           <div class="nexmoe-post-cover" style="padding-bottom: 66.66666666666666%;"> 
-              <img data-src="" data-sizes="auto" alt="categories" class="lazyload">
-              <h1>categories</h1>
+              <img data-src="" data-sizes="auto" alt="通过ReentrantLock了解AQS" class="lazyload">
+              <h1>通过ReentrantLock了解AQS</h1>
           </div>
       
       
       <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
-    <a><i class="nexmoefont icon-calendar-fill"></i>2022年01月13日</a>
+    <a><i class="nexmoefont icon-calendar-fill"></i>2022年04月08日</a>
 </div>
 
       
 
-      
+      <blockquote>
+<p>JUC： java.util.concorrent.*    Java支持高并发的实现包</p>
+</blockquote>
+<h1 id="AQS"><a href="#AQS" class="headerlink" title="AQS"></a>AQS</h1><p>AQS到底是什么？</p>
+<p>1、一个队列</p>
+<p>2、一个唤醒机制</p>
+<p>3、一堆队列节点状态</p>
+<p>4、一个state（为0表示无锁，数字是几就是几把锁，可能锁重入）</p>
+<p>5、模板方法设计模式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">X</span></span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> ReentrantLock lock = <span class="keyword">new</span> ReentrantLock ();</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">m</span><span class="params">()</span></span>&#123;</span><br><span class="line">    lock.lock();</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">      <span class="comment">//doSomething 互斥区</span></span><br><span class="line">    &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">      lock.unlock();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="公平锁和非公平锁最大的区别"><a href="#公平锁和非公平锁最大的区别" class="headerlink" title="公平锁和非公平锁最大的区别"></a>公平锁和非公平锁最大的区别</h1><p>公平锁先看是否有人排队，没有人直接上锁</p>
+<p>非公平锁是不管有没有人先直接抢锁，失败再去排队</p>
+<p>经过实践非公平锁是性能更加优越的，所以默认使用非公平锁，但性能更好是有前提的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (c == <span class="number">0</span>) &#123;</span><br><span class="line">   <span class="keyword">if</span> (!hasQueuedPredecessors() &amp;&amp; <span class="comment">//有没有线程在排队</span></span><br><span class="line">        compareAndSetState(<span class="number">0</span>, acquires)) &#123;</span><br><span class="line">              setExclusiveOwnerThread(current);</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">                &#125;                               </span><br><span class="line">       &#125;</span><br><span class="line">            </span><br><span class="line">  <span class="comment">//这是公平锁的，非公平锁就没有第一个判断是否有线程在排队</span></span><br><span class="line"><span class="comment">//AQS获取锁的核心方法</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">acquire</span><span class="params">(<span class="keyword">int</span> arg)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!tryAcquire(arg) <span class="comment">//子类看看能不能获取锁</span></span><br><span class="line">        &amp;&amp;</span><br><span class="line">            acquireQueued(addWaiter(Node.EXCLUSIVE), arg))<span class="comment">//先去排队，看看需不需要去休息区等候</span></span><br><span class="line">            selfInterrupt();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h1><p>先从<code>ReentrantLock</code>开始</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReentrantLock</span> <span class="keyword">implements</span> <span class="title">Lock</span>, <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span> </span>&#123;</span><br></pre></td></tr></table></figure>
+
+
   </article>
 
   
       
     <div class="nexmoe-post-copyright">
         <strong>本文作者：</strong>Sin<br>
-        <strong>本文链接：</strong><a href="http://aimersin.top/categories/index.html" title="http:&#x2F;&#x2F;aimersin.top&#x2F;categories&#x2F;index.html" target="_blank" rel="noopener">http:&#x2F;&#x2F;aimersin.top&#x2F;categories&#x2F;index.html</a><br>
+        <strong>本文链接：</strong><a href="http://aimersin.top/2022/04/08/tong-guo-reentrantlock-liao-jie-aqs/" title="http:&#x2F;&#x2F;aimersin.top&#x2F;2022&#x2F;04&#x2F;08&#x2F;tong-guo-reentrantlock-liao-jie-aqs&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;aimersin.top&#x2F;2022&#x2F;04&#x2F;08&#x2F;tong-guo-reentrantlock-liao-jie-aqs&#x2F;</a><br>
         
             <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
         
@@ -193,6 +216,10 @@
   
   <div class="nexmoe-post-meta nexmoe-rainbow">
     
+        <a class="nexmoefont icon-appstore-fill -link" href="/categories/Java/">Java</a>
+    
+    
+        <a class="nexmoefont icon-tag-fill -none-link" href="/tags/AQS/" rel="tag">AQS</a> <a class="nexmoefont icon-tag-fill -none-link" href="/tags/JUC/" rel="tag">JUC</a>
     
 </div>
 
@@ -225,6 +252,13 @@
                         
                           
                           
+                              <button class="mdui-fab catalog" style="overflow:unset;">
+                                  <i class="nexmoefont icon-i-catalog"></i>
+                                  <div class="nexmoe-toc">
+                                      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#AQS"><span class="toc-number">1.</span> <span class="toc-text">AQS</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AC%E5%B9%B3%E9%94%81%E5%92%8C%E9%9D%9E%E5%85%AC%E5%B9%B3%E9%94%81%E6%9C%80%E5%A4%A7%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">2.</span> <span class="toc-text">公平锁和非公平锁最大的区别</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%BA%90%E7%A0%81"><span class="toc-number">3.</span> <span class="toc-text">源码</span></a></li></ol>
+                                  </div>
+                              </button>
+                          
                           
                       
                     
@@ -253,10 +287,10 @@
 
  
 
-<script async src="/js/app.js?v=1652331273868"></script>
+<script async src="/js/app.js?v=1652331273710"></script>
 
 
-	<script async src="/js/search.js?v=1652331273868"></script>
+	<script async src="/js/search.js?v=1652331273710"></script>
 
 
 <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
