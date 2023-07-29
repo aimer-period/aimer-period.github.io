@@ -2,6 +2,8 @@
 title: SpringMVC
 top: false
 cover: https://cdn.jsdelivr.net/gh/aimer-period/pic/img/4t.png
+coverWidth: 1440
+coverHeight: 960
 toc: true
 mathjax: true
 date: 2022-03-05 00:28:13

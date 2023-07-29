@@ -2,6 +2,8 @@
 title: Hexo搭建博客
 date: 2022-01-12 17:24:40
 cover: https://cdn.jsdelivr.net/gh/aimer-period/pic/img/6t.png
+coverWidth: 1200
+coverHeight: 750
 tags: hexo
 ---
 

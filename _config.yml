@@ -3,17 +3,18 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Sin的博客
-subtitle: ''
-description: ''
-keywords:
+title: Sin の
+subtitle: '墨'
+description: '愿逐月华流照君'
+keywords: 
 author: Sin
 language: zh-CN
-timezone: ''
+timezone: Asia/Shanghai
+backgroud: https://cdn.jsdelivr.net/gh/aimer-period/pic/img/圣人惠.jpg
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://example.com
+url: http://aimersin.top
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
@@ -43,10 +44,11 @@ render_drafts: false
 post_asset_folder: false
 relative_link: false
 future: true
+# 代码高亮
 highlight:
   enable: true
   line_number: true
-  auto_detect: false
+  auto_detect: true
   tab_replace: ''
   wrap: true
   hljs: false
@@ -56,6 +58,8 @@ prismjs:
   line_number: true
   tab_replace: ''
 
+search:
+  type: local
 jsonContent:
   meta: false
   pages: false
@@ -111,6 +115,7 @@ pagination_dir: page
 include:
 exclude:
 ignore:
+
 
 # Extensions
 ## Plugins: https://hexo.io/plugins/

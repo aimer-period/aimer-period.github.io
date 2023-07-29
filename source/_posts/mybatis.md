@@ -2,6 +2,8 @@
 title: mybatis
 top: false
 cover: https://cdn.jsdelivr.net/gh/aimer-period/pic/img/11t.png
+coverWidth: 1200
+coverHeight: 750
 toc: true
 mathjax: true
 date: 2022-03-05 00:28:13
